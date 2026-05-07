@@ -72,5 +72,36 @@ model Task {
   assignedTo   User?   @relation(fields: [assignedToId], references: [id])
 
   createdAt   DateTime @default(now())
+
+  comments Comment[]
+}
+
+model comment {
+
+  id              String        @id @default(uuid())
+  content         String
+
+  taskId          String 
+  task            Task          @relation(fields: [taskId], references: [id] )
+
+  userId           String
+  user              User        @relation(fields: [userId], references: [id])
+
+  createdAt.       DateTime      DateTime @default(now())
+}
+
+model ActivityLog {
+     
+   id              String     @id @default(uuid())
+   action          String
+   description     String
+
+   userId          String
+   user            String     @relation(fields: [userId], references: [id])
+
+   taskId          String?
+   task            Task?      @relation(fields: [taskId], references: [id])
+
+   createdAt        DateTime @default(now())
 }
 
